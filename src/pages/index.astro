@@ -1,0 +1,113 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>time.</title>
+  </head>
+  <body class="grid items-center h-dvh bg-neutral-950 text-gray-50">
+    <section class="max-w-4xl mx-auto w-full px-5 space-y-3">
+      <div class="relative text-lg flex items-end">
+        <span id="spring" class="absolute"><Icon name="spring" /></span>
+        <span id="summer" class="absolute"><Icon name="summer" /></span>
+        <span id="fall" class="absolute"><Icon name="fall" /></span>
+        <span id="winter" class="absolute"><Icon name="winter" /></span>
+      </div>
+
+      <div class="bg-gray-800 rounded-xl overflow-hidden p-1">
+        <div
+          class="h-4 to-green-500 via-green-400 from-green-300 bg-gradient-to-r rounded-lg"
+          id="progressBar"
+        >
+        </div>
+      </div>
+
+      <h1 class="font-mono text-center">
+        The <span id="currentTime"></span>% year is over.
+      </h1>
+    </section>
+    <script>
+      function getPreciseTime(startTS: number) {
+        return ((startTS / endTS) * 100).toPrecision(7);
+      }
+
+      function getStartTS() {
+        const TS = new Date();
+        TS.setHours(0, 0, 0, 0);
+        TS.setMonth(0, 1);
+        return TS.getTime();
+      }
+
+      function getCurrentTS(startTS: number) {
+        return new Date().getTime() - startTS;
+      }
+
+      function getEndTS(startTS: number) {
+        const TS = new Date();
+        TS.setHours(23, 59, 59, 999);
+        TS.setMonth(11, 31);
+        return TS.getTime() - startTS;
+      }
+
+      const startTS = getStartTS();
+      const endTS = getEndTS(startTS);
+
+      // Set Spring
+      {
+        const TS = new Date();
+        TS.setHours(0, 0, 0, 0);
+        TS.setMonth(2, 1);
+        const timeLeftTS = getPreciseTime(TS.getTime() - startTS);
+        const el = document.getElementById("spring");
+        if (el) el.style.left = timeLeftTS + "%";
+      }
+
+      // Set Summer
+      {
+        const TS = new Date();
+        TS.setHours(0, 0, 0, 0);
+        TS.setMonth(5, 1);
+        const timeLeftTS = getPreciseTime(TS.getTime() - startTS);
+        const el = document.getElementById("summer");
+        if (el) el.style.left = timeLeftTS + "%";
+      }
+
+      // Set Fall
+      {
+        const TS = new Date();
+        TS.setHours(0, 0, 0, 0);
+        TS.setMonth(8, 1);
+        const timeLeftTS = getPreciseTime(TS.getTime() - startTS);
+        const el = document.getElementById("fall");
+        if (el) el.style.left = timeLeftTS + "%";
+      }
+
+      // Set Winter
+      {
+        const TS = new Date();
+        TS.setHours(0, 0, 0, 0);
+        TS.setMonth(11, 1);
+        const timeLeftTS = getPreciseTime(TS.getTime() - startTS);
+        const el = document.getElementById("winter");
+        if (el) el.style.left = timeLeftTS + "%";
+      }
+
+      function setTime() {
+        const timeLeftTS = getPreciseTime(getCurrentTS(startTS));
+
+        const currentTimeEl = document.getElementById("currentTime");
+        const progressBarEl = document.getElementById("progressBar");
+
+        if (currentTimeEl) currentTimeEl.textContent = timeLeftTS;
+        if (progressBarEl) progressBarEl.style.width = timeLeftTS + "%";
+      }
+
+      setInterval(setTime, 10);
+    </script>
+  </body>
+</html>
