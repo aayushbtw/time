@@ -64,7 +64,7 @@ import { Icon } from "astro-icon/components";
         TS.setMonth(2, 1);
         const timeLeftTS = getPreciseTime(TS.getTime() - startTS);
         const el = document.getElementById("spring");
-        if (el) el.style.left = timeLeftTS + "%";
+        if (el) el.style.left = `${timeLeftTS}%`;
       }
 
       // Set Summer
@@ -74,7 +74,7 @@ import { Icon } from "astro-icon/components";
         TS.setMonth(5, 1);
         const timeLeftTS = getPreciseTime(TS.getTime() - startTS);
         const el = document.getElementById("summer");
-        if (el) el.style.left = timeLeftTS + "%";
+        if (el) el.style.left = `${timeLeftTS}%`;
       }
 
       // Set Fall
@@ -84,7 +84,7 @@ import { Icon } from "astro-icon/components";
         TS.setMonth(8, 1);
         const timeLeftTS = getPreciseTime(TS.getTime() - startTS);
         const el = document.getElementById("fall");
-        if (el) el.style.left = timeLeftTS + "%";
+        if (el) el.style.left = `${timeLeftTS}%`;
       }
 
       // Set Winter
@@ -94,7 +94,7 @@ import { Icon } from "astro-icon/components";
         TS.setMonth(11, 1);
         const timeLeftTS = getPreciseTime(TS.getTime() - startTS);
         const el = document.getElementById("winter");
-        if (el) el.style.left = timeLeftTS + "%";
+        if (el) el.style.left = `${timeLeftTS}%`;
       }
 
       function setTime() {
@@ -103,8 +103,9 @@ import { Icon } from "astro-icon/components";
         const currentTimeEl = document.getElementById("currentTime");
         const progressBarEl = document.getElementById("progressBar");
 
+        document.title = `time: ${timeLeftTS}%`;
         if (currentTimeEl) currentTimeEl.textContent = timeLeftTS;
-        if (progressBarEl) progressBarEl.style.width = timeLeftTS + "%";
+        if (progressBarEl) progressBarEl.style.width = `${timeLeftTS}%`;
       }
 
       setInterval(setTime, 10);
