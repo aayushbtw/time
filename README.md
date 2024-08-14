@@ -1,3 +1,3 @@
 # time.
 
-A precise progress bar that displays how much time has passed.
+Year progress bar with precision.
