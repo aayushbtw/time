@@ -1,3 +1,3 @@
-# time.
+# time
 
-Year progress bar with precision.
+year progress bar with precision
